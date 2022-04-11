@@ -1,5 +1,6 @@
 ﻿using ExpenseManagementSystem1.Models;
 using ExpenseManagementSystem1.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace ExpenseManagementSystem1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
@@ -24,6 +26,18 @@ namespace ExpenseManagementSystem1.Controllers
                 return Ok(result.Succeeded);
             }
             return Unauthorized();
+
+        }
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody] SignInModel signInModel)
+        {
+            var result = await _accountRepository.LoginAsync(signInModel);
+
+            if (string.IsNullOrEmpty(result))
+            {
+                return Unauthorized();
+            }
+            return Ok(result);
 
         }
     }
