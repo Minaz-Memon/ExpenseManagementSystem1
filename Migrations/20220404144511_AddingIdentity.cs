@@ -64,20 +64,7 @@ namespace ExpenseManagementSystem1.Migrations
                     table.PrimaryKey("PK_Transcation", x => x.Transcation_Id);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    User_Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.User_Id);
-                });
+            
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",

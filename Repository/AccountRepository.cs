@@ -19,7 +19,9 @@ namespace ExpenseManagementSystem1.Repository
                 FirstName = signUpModel.FirstName,
                 LastName = signUpModel.LastName,
                 Email = signUpModel.Email,
-                UserName = signUpModel.Email
+                UserName = signUpModel.Email,
+                Name = $"{signUpModel.FirstName} {signUpModel.LastName}",
+                Password = signUpModel.Password
 
             };
             return await _userManager.CreateAsync(user, signUpModel.Password); 
