@@ -1,5 +1,6 @@
 ﻿using ExpenseManagementSystem1.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -48,7 +49,9 @@ namespace ExpenseManagementSystem1.Repository
                 new Claim(ClaimTypes.Name, signInModel.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
-            var authSiginKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT: Secret"]));
+
+            var testValue = (_configuration["JWT:Secret"]);
+            var authSiginKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
             
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
@@ -58,6 +61,11 @@ namespace ExpenseManagementSystem1.Repository
                 signingCredentials: new SigningCredentials(authSiginKey, SecurityAlgorithms.HmacSha256)
                 );
            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public Task<IActionResult> Logout()
+        {
+            throw new NotImplementedException();
         }
     }
 }

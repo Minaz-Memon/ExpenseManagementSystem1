@@ -1,5 +1,6 @@
 ﻿using ExpenseManagementSystem1.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseManagementSystem1.Repository
 {
@@ -7,5 +8,6 @@ namespace ExpenseManagementSystem1.Repository
     {
         Task<IdentityResult> SignUpAsync(SignUpModel signUpModel);
         Task<string> LoginAsync(SignInModel signInModel);
+        Task<IActionResult> Logout();
     }
 }

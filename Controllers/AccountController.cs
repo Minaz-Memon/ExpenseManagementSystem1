@@ -2,20 +2,23 @@
 using ExpenseManagementSystem1.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseManagementSystem1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly SignInManager<User> signInManager;
 
-        public AccountController(IAccountRepository accountRepository)
+        public AccountController(IAccountRepository accountRepository, SignInManager<User> signInManager)
         {
             _accountRepository = accountRepository;
+            this.signInManager = signInManager;
         }
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody]SignUpModel signUpModel)
@@ -39,6 +42,13 @@ namespace ExpenseManagementSystem1.Controllers
             }
             return Ok(result);
 
+        }
+        [HttpPost("loginOut")]
+        public async Task<IActionResult> Logout()
+        {
+            await this.signInManager.SignOutAsync();
+            
+            return Ok();
         }
     }
 }
