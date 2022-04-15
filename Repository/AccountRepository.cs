@@ -1,6 +1,7 @@
 ﻿using ExpenseManagementSystem1.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,14 +14,16 @@ namespace ExpenseManagementSystem1.Repository
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly ExpenseMSystemContext _context;
 
         public AccountRepository(UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IConfiguration configuration )
+            IConfiguration configuration, ExpenseMSystemContext context )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _context = context;
         }
 
         public async Task<IdentityResult> SignUpAsync(SignUpModel signUpModel)
@@ -66,6 +69,17 @@ namespace ExpenseManagementSystem1.Repository
         public Task<IActionResult> Logout()
         {
             throw new NotImplementedException();
+        }
+
+        //public async Task<List<Transcation>> GetTranscationsAsync()
+        //{
+          //  var records = Transcation.ToListAsyn();
+        //}
+
+        public async Task<List<FriendsModel>> GetFriendsAsync()
+        {
+            var records = await _context.Friends.ToListAsync();
+            return records;
         }
     }
 }

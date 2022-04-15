@@ -9,5 +9,7 @@ namespace ExpenseManagementSystem1.Repository
         Task<IdentityResult> SignUpAsync(SignUpModel signUpModel);
         Task<string> LoginAsync(SignInModel signInModel);
         Task<IActionResult> Logout();
+
+        Task<List<FriendsModel>> GetFriendsAsync();
     }
 }

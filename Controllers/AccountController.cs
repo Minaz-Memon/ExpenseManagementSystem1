@@ -50,5 +50,11 @@ namespace ExpenseManagementSystem1.Controllers
             
             return Ok();
         }
+        [HttpGet("Friends")]
+        public async Task<IActionResult> GetFriendsAsync()
+        {
+            var result = await _accountRepository.GetFriendsAsync();
+            return Ok(result);
+        }
     }
 }
