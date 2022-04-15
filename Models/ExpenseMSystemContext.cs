@@ -17,7 +17,7 @@ namespace ExpenseManagementSystem1.Models
         {
         }
 
-        //public virtual DbSet<Transcation> Transcations { get; set; } = null!;
+        public virtual DbSet<Transcation> Transcations { get; set; } = null!;
         //public virtual DbSet<User> Users { get; set; } = null!;
         public DbSet<FriendsModel> Friends { get; set; }
 

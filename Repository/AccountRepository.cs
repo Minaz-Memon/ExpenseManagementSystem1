@@ -73,13 +73,40 @@ namespace ExpenseManagementSystem1.Repository
 
         //public async Task<List<Transcation>> GetTranscationsAsync()
         //{
-          //  var records = Transcation.ToListAsyn();
+          //  var records = await Transcation.ToListAsyn();
+           // return records;
         //}
-
+        //To get List of Friends
         public async Task<List<FriendsModel>> GetFriendsAsync()
         {
             var records = await _context.Friends.ToListAsync();
             return records;
         }
+        //public async Task<List<FriendsModel>> GetFriendsByUserId(string Id)
+        //{
+          //  var records = await _context.Friends.Where(x=>x.UserId == Id);
+            //return records;
+
+        //}
+        public async Task<FriendsModel> AddFriendsAsync(FriendsModel friend)
+        {
+            _context.Friends.Add(friend);
+            await _context.SaveChangesAsync();
+            return friend;
+        }
+        public async Task DeleteFriendsAsync(int Id)
+        {
+            var dele = new FriendsModel() { Id = Id };
+            
+            _context.Friends.Remove(dele);
+            await _context.SaveChangesAsync();
+        }
+        public async Task<List<Transcation>> GetTranscationsAsync()
+        {
+            var records = await _context.Transcations.ToListAsync();
+            return records;
+        }
+
+
     }
 }

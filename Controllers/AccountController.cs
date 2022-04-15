@@ -50,11 +50,23 @@ namespace ExpenseManagementSystem1.Controllers
             
             return Ok();
         }
-        [HttpGet("Friends")]
+        [HttpGet("ListofFriends")]
         public async Task<IActionResult> GetFriendsAsync()
         {
             var result = await _accountRepository.GetFriendsAsync();
             return Ok(result);
+        }
+        [HttpPost("AddFriends")]
+        public async Task<IActionResult> AddFriendsAsync([FromBody] FriendsModel friend)
+        {
+            var result = await _accountRepository.AddFriendsAsync(friend);
+            return Ok();
+        }
+        [HttpDelete("DeleteFriends")]
+        public async Task<IActionResult> DeleteFriendsAsync(int Id)
+        {
+            await _accountRepository.DeleteFriendsAsync(Id);
+            return Ok();
         }
     }
 }

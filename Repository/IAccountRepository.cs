@@ -11,5 +11,7 @@ namespace ExpenseManagementSystem1.Repository
         Task<IActionResult> Logout();
 
         Task<List<FriendsModel>> GetFriendsAsync();
+        Task<FriendsModel> AddFriendsAsync(FriendsModel friend);
+        Task DeleteFriendsAsync(int Id);
     }
 }

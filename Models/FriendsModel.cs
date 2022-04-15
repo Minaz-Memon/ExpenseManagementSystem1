@@ -4,13 +4,13 @@ namespace ExpenseManagementSystem1.Models
 {
     public class FriendsModel
     {
-        [Required]
+        [Key]
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string UserId { get; set; }
 
-        [Required, EmailAddress]
-        public string Email { get; set; }
+        [Required]
+        public string FriendsId { get; set; }
     }
 }
