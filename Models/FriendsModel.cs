@@ -12,5 +12,7 @@ namespace ExpenseManagementSystem1.Models
 
         [Required]
         public string FriendsId { get; set; }
+
+        public User User { get; set; }
     }
 }

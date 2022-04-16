@@ -11,5 +11,7 @@ namespace ExpenseManagementSystem1.Models
         public string Email { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string Password { get; set; } = null!;
+
+        public ICollection<FriendsModel> Friends { get; set; }
     }
 }

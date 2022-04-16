@@ -68,5 +68,38 @@ namespace ExpenseManagementSystem1.Controllers
             await _accountRepository.DeleteFriendsAsync(Id);
             return Ok();
         }
+
+        [HttpGet("{id:int}")]
+        //public async Task<ActionResult<FriendsModel>> GetFriendsByUserId(int id)
+        //{
+          //  try
+            //{
+              //  var result = await _accountRepository.GetFriendsByUserId(id);
+              
+              //  if (result == null) return NotFound();
+
+                //return result;
+            //}
+            //catch (Exception)
+            //{
+              //  return StatusCode(StatusCodes.Status500InternalServerError,
+                //    "Error retrieving data from the database");
+            //}
+        //}
+
+
+        [HttpGet("ListofTranscation")]
+        public async Task<IActionResult> GetTranscationsAsync()
+        {
+            var result = await _accountRepository.GetTranscationsAsync();
+            return Ok(result);
+        }
+        [HttpPost("AddTranscations")]
+        public async Task<IActionResult> AddTranscationsAsync(Transcation trans)
+        {
+            var result = await _accountRepository.AddTranscationsAsync(trans);
+            return Ok();
+        }
+
     }
 }

@@ -13,5 +13,9 @@ namespace ExpenseManagementSystem1.Repository
         Task<List<FriendsModel>> GetFriendsAsync();
         Task<FriendsModel> AddFriendsAsync(FriendsModel friend);
         Task DeleteFriendsAsync(int Id);
+        //Task<FriendsModel> GetFriendsByUserId(int Id);
+
+        Task<List<Transcation>> GetTranscationsAsync();
+        Task<Transcation> AddTranscationsAsync(Transcation trans);
     }
 }

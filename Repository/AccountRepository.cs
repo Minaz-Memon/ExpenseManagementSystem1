@@ -71,29 +71,36 @@ namespace ExpenseManagementSystem1.Repository
             throw new NotImplementedException();
         }
 
-        //public async Task<List<Transcation>> GetTranscationsAsync()
-        //{
-          //  var records = await Transcation.ToListAsyn();
-           // return records;
-        //}
+        
         //To get List of Friends
         public async Task<List<FriendsModel>> GetFriendsAsync()
         {
             var records = await _context.Friends.ToListAsync();
             return records;
         }
-        //public async Task<List<FriendsModel>> GetFriendsByUserId(string Id)
-        //{
-          //  var records = await _context.Friends.Where(x=>x.UserId == Id);
-            //return records;
 
+       
+       // public Task<FriendsModel> GetFriendsByUserId(int Id)
+        //{
+           // var query = (from f in _context.Friends where f.Id == Id select f).ToList();
+            //IEnumerable<FriendsModel> search = from f in _context.Friends where f.Id == Id select f;
+
+            //var records =  _context.Friends.Where(x=>x.Id == Id).FirstOrDefaultAsync();
+            // return records;
+            // return (Task<FriendsModel>)search;
+           // return query;
+            
         //}
+
+        //To Add Friends
         public async Task<FriendsModel> AddFriendsAsync(FriendsModel friend)
         {
             _context.Friends.Add(friend);
             await _context.SaveChangesAsync();
             return friend;
         }
+
+        //To Delete Friends
         public async Task DeleteFriendsAsync(int Id)
         {
             var dele = new FriendsModel() { Id = Id };
@@ -101,12 +108,29 @@ namespace ExpenseManagementSystem1.Repository
             _context.Friends.Remove(dele);
             await _context.SaveChangesAsync();
         }
+
+
+
+        //List of Transcation
         public async Task<List<Transcation>> GetTranscationsAsync()
         {
             var records = await _context.Transcations.ToListAsync();
             return records;
         }
 
+        //Add Transcation
+        public async Task<Transcation> AddTranscationsAsync(Transcation trans)
+        {
+            _context.Transcations.Add(trans);
+            await _context.SaveChangesAsync();
+            return trans;
+        }
+
+
+        //Edit Transcation
+
+
+        //Delete Transcation
 
     }
 }
