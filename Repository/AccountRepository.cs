@@ -71,7 +71,7 @@ namespace ExpenseManagementSystem1.Repository
             throw new NotImplementedException();
         }
 
-        
+
         //To get List of Friends
         public async Task<List<FriendsModel>> GetFriendsAsync()
         {
@@ -79,17 +79,17 @@ namespace ExpenseManagementSystem1.Repository
             return records;
         }
 
-       
-       // public Task<FriendsModel> GetFriendsByUserId(int Id)
-        //{
-           // var query = (from f in _context.Friends where f.Id == Id select f).ToList();
-            //IEnumerable<FriendsModel> search = from f in _context.Friends where f.Id == Id select f;
 
-            //var records =  _context.Friends.Where(x=>x.Id == Id).FirstOrDefaultAsync();
-            // return records;
-            // return (Task<FriendsModel>)search;
-           // return query;
-            
+        // public Task<FriendsModel> GetFriendsByUserId(int Id)
+        //{
+        // var query = (from f in _context.Friends where f.Id == Id select f).ToList();
+        //IEnumerable<FriendsModel> search = from f in _context.Friends where f.Id == Id select f;
+
+        //var records =  _context.Friends.Where(x=>x.Id == Id).FirstOrDefaultAsync();
+        // return records;
+        // return (Task<FriendsModel>)search;
+        // return query;
+
         //}
 
         //To Add Friends
@@ -104,7 +104,7 @@ namespace ExpenseManagementSystem1.Repository
         public async Task DeleteFriendsAsync(int Id)
         {
             var dele = new FriendsModel() { Id = Id };
-            
+
             _context.Friends.Remove(dele);
             await _context.SaveChangesAsync();
         }

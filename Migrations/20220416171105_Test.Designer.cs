@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenseManagementSystem1.Migrations
 {
     [DbContext(typeof(ExpenseMSystemContext))]
-    [Migration("20220416111055_FkinFriends")]
-    partial class FkinFriends
+    [Migration("20220416171105_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -300,13 +300,11 @@ namespace ExpenseManagementSystem1.Migrations
 
             modelBuilder.Entity("ExpenseManagementSystem1.Models.FriendsModel", b =>
                 {
-                    b.HasOne("ExpenseManagementSystem1.Models.User", "User")
+                    b.HasOne("ExpenseManagementSystem1.Models.User", null)
                         .WithMany("Friends")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

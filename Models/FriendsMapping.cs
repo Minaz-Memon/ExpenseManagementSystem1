@@ -3,18 +3,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExpenseManagementSystem1.Models
 {
-    public class FriendsModel
+    public class FriendsMapping
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+
         public string UserId { get; set; }
 
-        [Required]
-        public string FriendsId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User  { get; set; }
 
-        //[ForeignKey("User")]
-        //public string UserId { get; set; }
-        //public User User { get; set; }
+        public string FriendId { get; set; }
+
+        [ForeignKey("FriendId")]
+        public virtual User Friend { get; set; }
+
     }
 }
