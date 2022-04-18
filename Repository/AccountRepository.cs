@@ -82,13 +82,8 @@ namespace ExpenseManagementSystem1.Repository
         //to get the specific Record
         public Task<FriendsMapping> GetFriendsById(int Id)
         {
-            // var query = (from f in _context.Friends where f.Id == Id select f).ToList();
-            //IEnumerable<FriendsModel> search = from f in _context.Friends where f.Id == Id select f;
-
             var records = _context.Friend.Where(x => x.Id == Id).FirstOrDefaultAsync();
             return records;
-            // return (Task<FriendsModel>)search;
-            // return query;
         }
 
         //To get list of friends of a particular user
@@ -100,13 +95,10 @@ namespace ExpenseManagementSystem1.Repository
 
         //To Add Friends
         public async Task<FriendsMapping> AddFriendsAsync(string userId, string friendId)
-       
         {
-
             FriendsMapping map = new FriendsMapping();
             map.UserId = userId;
             map.FriendId = friendId;
-            //var obj = string UserId , string FriendsId;
             _context.Friend.Add(map);
             await _context.SaveChangesAsync();
             return map;
@@ -124,25 +116,49 @@ namespace ExpenseManagementSystem1.Repository
 
 
         //List of Transaction
-        public async Task<List<Transaction>> GetTransactionsAsync()
+        public async Task<List<TransactionMapping>> GetTransactionsAsync()
         {
-            var records = await _context.Transactions.ToListAsync();
+            var records = await _context.TransactionMappings.ToListAsync();
             return records;
         }
 
         //Add Transcation
-        public async Task<Transaction> AddTransactionsAsync(Transaction trans)
+        public async Task<TransactionMapping> AddTransactionsAsync(string payer, string payee,int amount, DateTime date )
         {
-            _context.Transactions.Add(trans);
+            TransactionMapping map = new TransactionMapping();
+            map.Payer = payer;
+            map.Payee= payee;
+            map.Amount = amount;
+            map.Date = date;
+            _context.TransactionMappings.Add(map);
             await _context.SaveChangesAsync();
-            return trans;
+            return map;
+
+            //_context.TransactionMappings.Add(trans);
+            //await _context.SaveChangesAsync();
+            //return trans;
         }
 
-
-        //Edit Transcation
-
-
         //Delete Transcation
+        public async Task DeleteTransactionAsync(int id)
+        {
+            var dele = await _context.TransactionMappings.FirstAsync(x => x.TranscationId == id);
 
+            _context.TransactionMappings.Remove(dele);
+            await _context.SaveChangesAsync();
+        }
+
+        //to get the specific Record of Transaction
+        public Task<TransactionMapping> GetTransactionById(int Id)
+        {
+            var records = _context.TransactionMappings.Where(x => x.TranscationId == Id).FirstOrDefaultAsync();
+            return records;
+        }
+        //To get list of Transaction of a particular user
+        public async Task<List<TransactionMapping>> GetTransactionsByUserId(string UserId)
+        {
+            var query = await (from f in _context.TransactionMappings where f.Payer == UserId select f).ToListAsync();
+            return query;
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace ExpenseManagementSystem1.Models
         public string Password { get; set; } = null!;
 
         public ICollection<FriendsModel> Friends { get; set; }
+
+        //public ICollection<TransactionMapping> TransactionMappings { get; set; }
     }
 }

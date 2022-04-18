@@ -21,7 +21,7 @@ namespace ExpenseManagementSystem1.Models
         //public virtual DbSet<User> Users { get; set; } = null!;
        public DbSet<FriendsModel> Friends { get; set; }
         public DbSet<FriendsMapping> Friend { get; set; }
-
+        public virtual DbSet<TransactionMapping> TransactionMappings { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -38,7 +38,7 @@ namespace ExpenseManagementSystem1.Models
             {
                 entity.ToTable("Transcation");
 
-                entity.Property(e => e.TransactionId).HasColumnName("Transaction_Id");
+                entity.Property(e => e.TranscationId).HasColumnName("Transaction_Id");
 
                 entity.Property(e => e.Date).HasColumnType("date");
 

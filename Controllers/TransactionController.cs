@@ -20,12 +20,54 @@ namespace ExpenseManagementSystem1.Controllers
             var result = await _accountRepository.GetTransactionsAsync();
             return Ok(result);
         }
-        [HttpPost("AddTranscations")]
-        public async Task<IActionResult> AddTransactionsAsync(Transaction trans)
+        [HttpPost("AddTransactions")]
+        public async Task<IActionResult> AddTransactionsAsync(string payer, string payee, int amount, DateTime date)
         {
-            var result = await _accountRepository.AddTransactionsAsync(trans);
+            var result = await _accountRepository.AddTransactionsAsync(payer,payee,amount,date);
             return Ok();
         }
+        [HttpDelete("DeleteTransaction")]
+        public async Task<IActionResult> DeleteTransactionAsync(int Id)
+        {
+            await _accountRepository.DeleteTransactionAsync(Id);
+            return Ok();
+        }
+        [HttpGet("GetTransactionById")]
 
+        public async Task<ActionResult<TransactionMapping>> GetTransactionById(int id)
+        {
+            try
+            {
+                var result = await _accountRepository.GetTransactionById(id);
+
+                if (result == null) return NotFound();
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                  "Error retrieving data from the database");
+            }
+        }
+        [HttpGet("EachUserTransaction")]
+
+        public async Task<ActionResult<TransactionMapping>> GetTransactionsByUserId(string UserId)
+        {
+            try
+            {
+                var result = await _accountRepository.GetTransactionsByUserId(UserId);
+
+
+                if (result == null) return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                  "Error retrieving data from the database");
+            }
+        }
     }
 }

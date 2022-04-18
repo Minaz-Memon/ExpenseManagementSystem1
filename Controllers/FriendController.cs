@@ -33,8 +33,8 @@ namespace ExpenseManagementSystem1.Controllers
             await _accountRepository.DeleteFriendsAsync(Id);
             return Ok();
         }
-
-        [HttpGet("{id:int}")]
+        
+        [HttpGet("GetFriendById")]
         public async Task<ActionResult<FriendsMapping>> GetFriendsById(int id)
         {
             try
