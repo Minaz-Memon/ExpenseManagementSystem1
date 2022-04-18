@@ -17,7 +17,7 @@ namespace ExpenseManagementSystem1.Models
         {
         }
 
-        public virtual DbSet<Transcation> Transcations { get; set; } = null!;
+        public virtual DbSet<Transaction> Transactions { get; set; } = null!;
         //public virtual DbSet<User> Users { get; set; } = null!;
        public DbSet<FriendsModel> Friends { get; set; }
         public DbSet<FriendsMapping> Friend { get; set; }
@@ -34,11 +34,11 @@ namespace ExpenseManagementSystem1.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Transcation>(entity =>
+            modelBuilder.Entity<Transaction>(entity =>
             {
                 entity.ToTable("Transcation");
 
-                entity.Property(e => e.TranscationId).HasColumnName("Transcation_Id");
+                entity.Property(e => e.TransactionId).HasColumnName("Transaction_Id");
 
                 entity.Property(e => e.Date).HasColumnType("date");
 

@@ -18,5 +18,7 @@ namespace ExpenseManagementSystem1.Models
         [ForeignKey("FriendId")]
         public virtual User Friend { get; set; }
 
+     
+
     }
 }

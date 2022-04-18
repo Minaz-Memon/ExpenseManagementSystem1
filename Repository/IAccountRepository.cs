@@ -11,12 +11,13 @@ namespace ExpenseManagementSystem1.Repository
         Task<IActionResult> Logout();
 
         Task<List<FriendsMapping>> GetFriendsAsync();
-        Task<FriendsMapping> AddFriendsAsync(FriendsMapping friend);
+        Task<FriendsMapping> AddFriendsAsync(string UserId, string FriendId);
 
         Task DeleteFriendsAsync(int Id);
-        Task<FriendsMapping> GetFriendsByUserId(int Id);
+        Task<FriendsMapping> GetFriendsById(int Id);
+        Task<List<FriendsMapping>> GetFriendsByUserId(string UserId);
 
-        Task<List<Transcation>> GetTranscationsAsync();
-        Task<Transcation> AddTranscationsAsync(Transcation trans);
+        Task<List<Transaction>> GetTransactionsAsync();
+        Task<Transaction> AddTransactionsAsync(Transaction trans);
     }
 }

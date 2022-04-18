@@ -50,57 +50,12 @@ namespace ExpenseManagementSystem1.Controllers
             
             return Ok();
         }
-        [HttpGet("ListofFriends")]
-        public async Task<IActionResult> GetFriendsAsync()
-        {
-            var result = await _accountRepository.GetFriendsAsync();
-            return Ok(result);
-        }
-
-        [HttpPost("AddFriends")]
-        public async Task<IActionResult> AddFriendsAsync([FromBody] FriendsMapping friend)
-        {
-            var result = await _accountRepository.AddFriendsAsync(friend);
-            return Ok();
-        }
-        [HttpDelete("DeleteFriends")]
-        public async Task<IActionResult> DeleteFriendsAsync(int Id)
-        {
-            await _accountRepository.DeleteFriendsAsync(Id);
-            return Ok();
-        }
-
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<FriendsMapping>> GetFriendsByUserId(int id)
-        {
-            try
-            {
-                var result = await _accountRepository.GetFriendsByUserId(id);
-
-                if (result == null) return NotFound();
-
-                return result;
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                  "Error retrieving data from the database");
-            }
-        }
 
 
-        [HttpGet("ListofTranscation")]
-        public async Task<IActionResult> GetTranscationsAsync()
-        {
-            var result = await _accountRepository.GetTranscationsAsync();
-            return Ok(result);
-        }
-        [HttpPost("AddTranscations")]
-        public async Task<IActionResult> AddTranscationsAsync(Transcation trans)
-        {
-            var result = await _accountRepository.AddTranscationsAsync(trans);
-            return Ok();
-        }
 
+
+
+
+       
     }
 }

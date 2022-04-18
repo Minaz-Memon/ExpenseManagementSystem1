@@ -79,31 +79,43 @@ namespace ExpenseManagementSystem1.Repository
             return records;
         }
 
-
-        public Task<FriendsMapping> GetFriendsByUserId(int Id)
+        //to get the specific Record
+        public Task<FriendsMapping> GetFriendsById(int Id)
         {
-           // var query = (from f in _context.Friends where f.Id == Id select f).ToList();
+            // var query = (from f in _context.Friends where f.Id == Id select f).ToList();
             //IEnumerable<FriendsModel> search = from f in _context.Friends where f.Id == Id select f;
 
             var records = _context.Friend.Where(x => x.Id == Id).FirstOrDefaultAsync();
             return records;
-           // return (Task<FriendsModel>)search;
-           // return query;
+            // return (Task<FriendsModel>)search;
+            // return query;
+        }
 
+        //To get list of friends of a particular user
+        public async Task<List<FriendsMapping>> GetFriendsByUserId(string UserId)
+        {
+            var query = await (from f in _context.Friend where f.UserId == UserId select f).ToListAsync();
+            return query;
         }
 
         //To Add Friends
-        public async Task<FriendsMapping> AddFriendsAsync(FriendsMapping friend)
+        public async Task<FriendsMapping> AddFriendsAsync(string userId, string friendId)
+       
         {
-            _context.Friend.Add(friend);
+
+            FriendsMapping map = new FriendsMapping();
+            map.UserId = userId;
+            map.FriendId = friendId;
+            //var obj = string UserId , string FriendsId;
+            _context.Friend.Add(map);
             await _context.SaveChangesAsync();
-            return friend;
+            return map;
         }
 
-        //To Delete Friends
-        public async Task DeleteFriendsAsync(int Id)
+        //to delete friends
+        public async Task DeleteFriendsAsync(int id)
         {
-            var dele = new FriendsMapping() { Id = Id };
+            var dele = await _context.Friend.FirstAsync(x => x.Id == id );
 
             _context.Friend.Remove(dele);
             await _context.SaveChangesAsync();
@@ -111,17 +123,17 @@ namespace ExpenseManagementSystem1.Repository
 
 
 
-        //List of Transcation
-        public async Task<List<Transcation>> GetTranscationsAsync()
+        //List of Transaction
+        public async Task<List<Transaction>> GetTransactionsAsync()
         {
-            var records = await _context.Transcations.ToListAsync();
+            var records = await _context.Transactions.ToListAsync();
             return records;
         }
 
         //Add Transcation
-        public async Task<Transcation> AddTranscationsAsync(Transcation trans)
+        public async Task<Transaction> AddTransactionsAsync(Transaction trans)
         {
-            _context.Transcations.Add(trans);
+            _context.Transactions.Add(trans);
             await _context.SaveChangesAsync();
             return trans;
         }
