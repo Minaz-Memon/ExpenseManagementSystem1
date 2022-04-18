@@ -10,10 +10,11 @@ namespace ExpenseManagementSystem1.Repository
         Task<string> LoginAsync(SignInModel signInModel);
         Task<IActionResult> Logout();
 
-        Task<List<FriendsModel>> GetFriendsAsync();
-        Task<FriendsModel> AddFriendsAsync(FriendsModel friend);
+        Task<List<FriendsMapping>> GetFriendsAsync();
+        Task<FriendsMapping> AddFriendsAsync(FriendsMapping friend);
+
         Task DeleteFriendsAsync(int Id);
-        ////Task<FriendsModel> GetFriendsByUserId(int Id);
+        Task<FriendsMapping> GetFriendsByUserId(int Id);
 
         Task<List<Transcation>> GetTranscationsAsync();
         Task<Transcation> AddTranscationsAsync(Transcation trans);

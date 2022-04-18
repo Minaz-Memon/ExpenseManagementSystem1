@@ -73,29 +73,29 @@ namespace ExpenseManagementSystem1.Repository
 
 
         //To get List of Friends
-        public async Task<List<FriendsModel>> GetFriendsAsync()
+        public async Task<List<FriendsMapping>> GetFriendsAsync()
         {
-            var records = await _context.Friends.ToListAsync();
+            var records = await _context.Friend.ToListAsync();
             return records;
         }
 
 
-        // public Task<FriendsModel> GetFriendsByUserId(int Id)
-        //{
-        // var query = (from f in _context.Friends where f.Id == Id select f).ToList();
-        //IEnumerable<FriendsModel> search = from f in _context.Friends where f.Id == Id select f;
+        public Task<FriendsMapping> GetFriendsByUserId(int Id)
+        {
+           // var query = (from f in _context.Friends where f.Id == Id select f).ToList();
+            //IEnumerable<FriendsModel> search = from f in _context.Friends where f.Id == Id select f;
 
-        //var records =  _context.Friends.Where(x=>x.Id == Id).FirstOrDefaultAsync();
-        // return records;
-        // return (Task<FriendsModel>)search;
-        // return query;
+            var records = _context.Friend.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            return records;
+           // return (Task<FriendsModel>)search;
+           // return query;
 
-        //}
+        }
 
         //To Add Friends
-        public async Task<FriendsModel> AddFriendsAsync(FriendsModel friend)
+        public async Task<FriendsMapping> AddFriendsAsync(FriendsMapping friend)
         {
-            _context.Friends.Add(friend);
+            _context.Friend.Add(friend);
             await _context.SaveChangesAsync();
             return friend;
         }
@@ -103,9 +103,9 @@ namespace ExpenseManagementSystem1.Repository
         //To Delete Friends
         public async Task DeleteFriendsAsync(int Id)
         {
-            var dele = new FriendsModel() { Id = Id };
+            var dele = new FriendsMapping() { Id = Id };
 
-            _context.Friends.Remove(dele);
+            _context.Friend.Remove(dele);
             await _context.SaveChangesAsync();
         }
 

@@ -56,8 +56,9 @@ namespace ExpenseManagementSystem1.Controllers
             var result = await _accountRepository.GetFriendsAsync();
             return Ok(result);
         }
+
         [HttpPost("AddFriends")]
-        public async Task<IActionResult> AddFriendsAsync([FromBody] FriendsModel friend)
+        public async Task<IActionResult> AddFriendsAsync([FromBody] FriendsMapping friend)
         {
             var result = await _accountRepository.AddFriendsAsync(friend);
             return Ok();
@@ -70,22 +71,22 @@ namespace ExpenseManagementSystem1.Controllers
         }
 
         [HttpGet("{id:int}")]
-        //public async Task<ActionResult<FriendsModel>> GetFriendsByUserId(int id)
-        //{
-          //  try
-            //{
-              //  var result = await _accountRepository.GetFriendsByUserId(id);
-              
-              //  if (result == null) return NotFound();
+        public async Task<ActionResult<FriendsMapping>> GetFriendsByUserId(int id)
+        {
+            try
+            {
+                var result = await _accountRepository.GetFriendsByUserId(id);
 
-                //return result;
-            //}
-            //catch (Exception)
-            //{
-              //  return StatusCode(StatusCodes.Status500InternalServerError,
-                //    "Error retrieving data from the database");
-            //}
-        //}
+                if (result == null) return NotFound();
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                  "Error retrieving data from the database");
+            }
+        }
 
 
         [HttpGet("ListofTranscation")]
