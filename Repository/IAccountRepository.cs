@@ -22,5 +22,6 @@ namespace ExpenseManagementSystem1.Repository
         Task DeleteTransactionAsync(int id);
         Task<TransactionMapping> GetTransactionById(int Id);
         Task<List<TransactionMapping>> GetTransactionsByUserId(string UserId);
+        Task UpdateTransaction(int TransactionId, string payer, string payee, int amount, DateTime date);
     }
 }

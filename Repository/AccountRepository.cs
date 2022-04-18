@@ -160,5 +160,26 @@ namespace ExpenseManagementSystem1.Repository
             var query = await (from f in _context.TransactionMappings where f.Payer == UserId select f).ToListAsync();
             return query;
         }
+
+        //To Edit
+        public async Task UpdateTransaction(int TransactionId,string payer, string payee, int amount, DateTime date)
+        {
+            var edit = await _context.TransactionMappings.FindAsync(TransactionId);
+            TransactionMapping map = new TransactionMapping();
+            map.Payer = payer;
+            map.Payee = payee;
+            map.Amount = amount;
+            map.Date = date;
+            _context.TransactionMappings.Update(map);
+             if (edit != null)
+            {
+                edit.Payer = map.Payer;
+                edit.Payee = map.Payee;
+                edit.Amount = map.Amount;
+                edit.Date = map.Date;
+
+                await _context.SaveChangesAsync();
+             }
+        }
     }
 }

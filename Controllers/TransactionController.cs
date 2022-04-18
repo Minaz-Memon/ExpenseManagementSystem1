@@ -69,5 +69,11 @@ namespace ExpenseManagementSystem1.Controllers
                   "Error retrieving data from the database");
             }
         }
+        [HttpPut("UpdateTransaction")]
+        public async Task<IActionResult> UpdateTransaction(int TransactionId, string payer, string payee, int amount, DateTime date)
+        {
+            await _accountRepository.UpdateTransaction(TransactionId, payer,payee, amount, date);
+            return Ok();
+        }
     }
 }
