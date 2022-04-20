@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -18,7 +20,7 @@ namespace ExpenseManagementSystem1.Repository
 
         public AccountRepository(UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IConfiguration configuration, ExpenseMSystemContext context )
+            IConfiguration configuration, ExpenseMSystemContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,7 +40,7 @@ namespace ExpenseManagementSystem1.Repository
                 Password = signUpModel.Password
 
             };
-            return await _userManager.CreateAsync(user, signUpModel.Password); 
+            return await _userManager.CreateAsync(user, signUpModel.Password);
         }
         public async Task<string> LoginAsync(SignInModel signInModel)
         {
@@ -55,7 +57,7 @@ namespace ExpenseManagementSystem1.Repository
 
             var testValue = (_configuration["JWT:Secret"]);
             var authSiginKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
-            
+
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
@@ -63,7 +65,7 @@ namespace ExpenseManagementSystem1.Repository
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSiginKey, SecurityAlgorithms.HmacSha256)
                 );
-           return new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         public Task<IActionResult> Logout()
@@ -89,9 +91,23 @@ namespace ExpenseManagementSystem1.Repository
         //To get list of friends of a particular user
         public async Task<List<FriendsMapping>> GetFriendsByUserId(string UserId)
         {
-            var query = await (from f in _context.Friend where f.UserId == UserId select f).ToListAsync();
+            var query = await _context.Friend.Where(x => x.UserId == UserId).Include(x => x.User
+            ).Include(x => x.Friend).ToListAsync();
+
+            //var query = await (from p in _context.Friend
+            //                   join u in _context.Users on p.UserId equals u.Id
+            //                   where UserId == p.UserId
+            //                   select new FriendsMapping()
+            //                   {
+            //                       UserId = p.UserId,
+            //                       FriendId = p.FriendId,
+            //                       User = _context.Users.First(x => x.Id == p.UserId),
+            //                       Friend = _context.Users.First(x => x.Id == p.FriendId),
+            //                   }).ToListAsync();
             return query;
+
         }
+
 
         //To Add Friends
         public async Task<FriendsMapping> AddFriendsAsync(string userId, string friendId)
@@ -113,14 +129,52 @@ namespace ExpenseManagementSystem1.Repository
             await _context.SaveChangesAsync();
         }
 
+        //List of User
+        public async Task<List<UserAC>> GetAllUSers() {
+            var records = await  _context.Users.ToListAsync();
+            var output = new List<UserAC>();
+            records.ForEach(x =>
+            {
+                var userdata = new UserAC
+                {
+                    Name = x.Name,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber
+                };
+
+                output.Add(userdata);
+
+            });
+
+            return output;
+        }
 
 
         //List of Transaction
-        public async Task<List<TransactionMapping>> GetTransactionsAsync()
-        {
-            var records = await _context.TransactionMappings.ToListAsync();
-            return records;
-        }
+        //public async Task<List<TransactionAC>> GetTransactionsAsync()
+        //{
+        //    //var records = await _context.TransactionMappings.ToListAsync();
+        //    var query = await _context.TransactionMappings.Include("User").ToListAsync();
+
+        //    var output = new List<TransactionAC>();
+        //    query.ForEach(x =>
+        //    {
+        //        var userdata = new TransactionAC
+        //        {
+        //            TransactionId = x.TranscationId,
+        //            Payee = x.Payee,
+        //            Payer = x.Payer,
+        //            Name = x.Name,
+        //            Email = x.Email,
+        //            PhoneNumber = x.PhoneNumber
+        //        };
+
+        //        output.Add(userdata);
+
+        //    });
+
+        //    return output;
+        //}
 
         //Add Transcation
         public async Task<TransactionMapping> AddTransactionsAsync(string payer, string payee,int amount, DateTime date )

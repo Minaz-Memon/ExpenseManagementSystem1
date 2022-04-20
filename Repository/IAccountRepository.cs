@@ -17,11 +17,12 @@ namespace ExpenseManagementSystem1.Repository
         Task<FriendsMapping> GetFriendsById(int Id);
         Task<List<FriendsMapping>> GetFriendsByUserId(string UserId);
 
-        Task<List<TransactionMapping>> GetTransactionsAsync();
+        //Task<List<TransactionAC>> GetTransactionsAsync();
         Task<TransactionMapping> AddTransactionsAsync(string payer, string payee, int amount, DateTime date);
         Task DeleteTransactionAsync(int id);
         Task<TransactionMapping> GetTransactionById(int Id);
         Task<List<TransactionMapping>> GetTransactionsByUserId(string UserId);
         Task UpdateTransaction(int TransactionId, string payer, string payee, int amount, DateTime date);
+        Task<List<UserAC>> GetAllUSers();
     }
 }

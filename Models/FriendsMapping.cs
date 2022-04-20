@@ -8,17 +8,16 @@ namespace ExpenseManagementSystem1.Models
         [Key]
         public int Id { get; set; }
 
-        public string UserId { get; set; }
+        
 
         [ForeignKey("UserId")]
+        public string UserId { get; set; }
         public virtual User User  { get; set; }
 
-        public string FriendId { get; set; }
-
         [ForeignKey("FriendId")]
+        public string FriendId { get; set; }
         public virtual User Friend { get; set; }
-
-     
-
+        //public string Name { get; internal set; }
+        //public string Email { get; internal set; }
     }
 }

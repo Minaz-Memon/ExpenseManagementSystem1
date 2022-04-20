@@ -13,28 +13,28 @@ namespace ExpenseManagementSystem1.Controllers
             _accountRepository = accountRepository;
         }
 
-        [HttpGet("ListofFriends")]
+        [HttpGet("friends")]
         public async Task<IActionResult> GetFriendsAsync()
         {
             var result = await _accountRepository.GetFriendsAsync();
             return Ok(result);
         }
 
-        [HttpPost("AddFriends")]
+        [HttpPost("addFriends")]
         public async Task<IActionResult> AddFriendsAsync(string UserId, string FriendId)
         {
             var result = await _accountRepository.AddFriendsAsync(UserId, FriendId);
             return Ok(result);
         }
 
-        [HttpDelete("DeleteFriends")]
+        [HttpDelete("deleteFriends")]
         public async Task<IActionResult> DeleteFriendsAsync(int Id)
         {
             await _accountRepository.DeleteFriendsAsync(Id);
             return Ok();
         }
         
-        [HttpGet("GetFriendById")]
+        [HttpGet("getbyId")]
         public async Task<ActionResult<FriendsMapping>> GetFriendsById(int id)
         {
             try
@@ -51,7 +51,7 @@ namespace ExpenseManagementSystem1.Controllers
                   "Error retrieving data from the database");
             }
         }
-        [HttpGet("EachUserFriend")]
+        [HttpGet("userfriends")]
         public async Task<ActionResult<FriendsMapping>> GetFriendsByUserId(string UserId)
         {
             try
@@ -70,5 +70,11 @@ namespace ExpenseManagementSystem1.Controllers
             }
         }
 
+        [HttpGet("users")]
+        public async Task<IActionResult> GetAllUSers()
+        {
+            var result = await _accountRepository.GetAllUSers();
+            return Ok(result);
+        }
     }
 }

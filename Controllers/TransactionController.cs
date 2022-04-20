@@ -14,25 +14,25 @@ namespace ExpenseManagementSystem1.Controllers
             _accountRepository = accountRepository;
         }
 
-        [HttpGet("ListofTransaction")]
+        [HttpGet("transactions")]
         public async Task<IActionResult> GetTransactionsAsync()
         {
             var result = await _accountRepository.GetTransactionsAsync();
             return Ok(result);
         }
-        [HttpPost("AddTransactions")]
+        [HttpPost("addTransactions")]
         public async Task<IActionResult> AddTransactionsAsync(string payer, string payee, int amount, DateTime date)
         {
             var result = await _accountRepository.AddTransactionsAsync(payer,payee,amount,date);
             return Ok();
         }
-        [HttpDelete("DeleteTransaction")]
+        [HttpDelete("deleteTransaction")]
         public async Task<IActionResult> DeleteTransactionAsync(int Id)
         {
             await _accountRepository.DeleteTransactionAsync(Id);
             return Ok();
         }
-        [HttpGet("GetTransactionById")]
+        [HttpGet("getbyId")]
 
         public async Task<ActionResult<TransactionMapping>> GetTransactionById(int id)
         {
@@ -50,7 +50,7 @@ namespace ExpenseManagementSystem1.Controllers
                   "Error retrieving data from the database");
             }
         }
-        [HttpGet("EachUserTransaction")]
+        [HttpGet("eachUserTransaction")]
 
         public async Task<ActionResult<TransactionMapping>> GetTransactionsByUserId(string UserId)
         {
@@ -69,7 +69,7 @@ namespace ExpenseManagementSystem1.Controllers
                   "Error retrieving data from the database");
             }
         }
-        [HttpPut("UpdateTransaction")]
+        [HttpPut("updateTransaction")]
         public async Task<IActionResult> UpdateTransaction(int TransactionId, string payer, string payee, int amount, DateTime date)
         {
             await _accountRepository.UpdateTransaction(TransactionId, payer,payee, amount, date);
